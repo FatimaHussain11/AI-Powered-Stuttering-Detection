@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – SpeakFlow AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ──────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><i class="fas fa-wave-square"></i></div>
+      <div>
+        <span class="sidebar-logo-text">SpeakFlow <span class="logo-ai">AI</span></span>
+        <p class="sidebar-logo-sub">Admin Panel</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-tab="dashboard">
+        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="users">
+        <i class="fas fa-users"></i> <span>User Management</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="analyses">
+        <i class="fas fa-history"></i> <span>Analysis History</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="charts">
+        <i class="fas fa-chart-line"></i> <span>Analytics Charts</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-profile">
+        <div class="admin-avatar"><i class="fas fa-shield-alt"></i></div>
+        <div>
+          <strong>Administrator</strong>
+          <p>admin@speakflow.ai</p>
+        </div>
+      </div>
+      <button class="btn-logout-sidebar" id="adminLogout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ─────────────────────────────────────── -->
+  <main class="admin-main">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <div class="topbar-title" id="topbarTitle">Dashboard Overview</div>
+      <div class="topbar-right">
+        <div class="topbar-badge"><i class="fas fa-shield-alt"></i> Admin</div>
+        <div class="topbar-time" id="topbarTime"></div>
+      </div>
+    </div>
+
+    <!-- ═══ DASHBOARD TAB ════════════════════════════════════ -->
+    <section class="tab-section active" id="tab-dashboard">
+      <div class="section-heading">
+        <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+        <p>Real-time platform statistics and system health.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card card-blue">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-body">
+            <div class="stat-number" id="sc-users">0</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+          <div class="stat-trend" id="st-users"></div>
+        </div>
+        <div class="stat-card card-teal">
+          <div class="stat-icon"><i class="fas fa-brain"></i></div>
+          <div class="stat-body">
+            <div class="stat-number" id="sc-analyses">0</div>
+            <div class="stat-label">Total Analyses</div>
+          </div>
+        </div>
+        <div class="stat-card card-green">
+          <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-body">
+            <div class="stat-number" id="sc-normal">0</div>
+            <div class="stat-label">Normal Detections</div>
+          </div>
+        </div>
+        <div class="stat-card card-orange">
+          <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="stat-body">
+            <div class="stat-number" id="sc-stutter">0</div>
+            <div class="stat-label">Stutter Detections</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Charts Row -->
+      <div class="quick-charts">
+        <div class="chart-card">
+          <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Detection Ratio</h3>
+          <div class="chart-wrap"><canvas id="dashPieChart"></canvas></div>
+        </div>
+        <div class="chart-card chart-wide">
+          <h3 class="chart-title"><i class="fas fa-chart-bar"></i> Recent Activity (Last 7 Days)</h3>
+          <div class="chart-wrap"><canvas id="dashBarChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ USERS TAB ════════════════════════════════════════ -->
+    <section class="tab-section" id="tab-users">
+      <div class="section-heading">
+        <h2><i class="fas fa-users"></i> User Management</h2>
+        <p>View, search, and manage registered users.</p>
+      </div>
+      <div class="table-toolbar">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="userSearch" placeholder="Search by name or email..." />
+        </div>
+        <span id="userCount" class="count-badge">0 users</span>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Registered</th>
+              <th>Analyses</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+        <div class="table-empty" id="usersEmpty" style="display:none;">
+          <i class="fas fa-user-slash"></i><p>No users found.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ANALYSES TAB ═════════════════════════════════════ -->
+    <section class="tab-section" id="tab-analyses">
+      <div class="section-heading">
+        <h2><i class="fas fa-history"></i> Analysis History</h2>
+        <p>All speech analyses performed across all users.</p>
+      </div>
+      <div class="table-toolbar">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="analysisSearch" placeholder="Search by user, file, or result..." />
+        </div>
+        <button class="btn-export" id="exportCsvBtn"><i class="fas fa-file-csv"></i> Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table" id="analysesTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>File Name</th>
+              <th>Date</th>
+              <th>Result</th>
+              <th>Confidence</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="analysesBody"></tbody>
+        </table>
+        <div class="table-empty" id="analysesEmpty" style="display:none;">
+          <i class="fas fa-history"></i><p>No analyses found.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CHARTS TAB ════════════════════════════════════════ -->
+    <section class="tab-section" id="tab-charts">
+      <div class="section-heading">
+        <h2><i class="fas fa-chart-line"></i> Analytics Charts</h2>
+        <p>Visual insights into platform usage and detection trends.</p>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card chart-full">
+          <h3 class="chart-title"><i class="fas fa-chart-line"></i> User Growth Over Time</h3>
+          <div class="chart-wrap chart-tall"><canvas id="userGrowthChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Normal vs Stutter</h3>
+          <div class="chart-wrap"><canvas id="detectionPieChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title"><i class="fas fa-chart-bar"></i> Analysis Activity</h3>
+          <div class="chart-wrap"><canvas id="activityChart"></canvas></div>
+        </div>
+        <div class="chart-card chart-full">
+          <h3 class="chart-title"><i class="fas fa-server"></i> System Statistics</h3>
+          <div class="sys-stats-grid" id="sysStatsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- User View Modal -->
+  <div id="userViewModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-user"></i> User Details</h3>
+        <button class="modal-close" id="userViewClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="userViewBody"></div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
