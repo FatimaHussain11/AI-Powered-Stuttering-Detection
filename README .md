@@ -223,19 +223,18 @@ admin-dashboard.png
 
 Then display them like this:
 
-| Landing Page | Audio Analysis |
+| Landing Page | Create Account |
 |--------------|----------------|
 <img width="878" height="405" alt="Capture" src="https://github.com/user-attachments/assets/c4c4c76b-91db-46b9-839c-39d340e8ca04" />  | <img width="240" height="402" alt="10" src="https://github.com/user-attachments/assets/dd6649d5-1ed3-4135-b831-3a9cea700058" />
 
-| Results | History |
+| login page | Analyzing Audio |
 |----------|----------|
 <img width="279" height="400" alt="9" src="https://github.com/user-attachments/assets/4e52e33f-ce4a-4d68-b705-fcf1b6a520dc" />  | <img width="668" height="341" alt="2" src="https://github.com/user-attachments/assets/b71a9f87-98c7-4929-b715-57c5e0dbed70" />
 
 
-| Login | Admin Dashboard |
+| Recording | Report download |
 |-------|-----------------|
-<img width="417" height="342" alt="3" src="https://github.com/user-attachments/assets/7a10bba5-5190-424f-a65c-22c956934800" />
- | <img width="487" height="119" alt="5" src="https://github.com/user-attachments/assets/bfd785e5-6d50-49c2-a8a0-8fcf592a0cc6" />
+<img width="417" height="342" alt="3" src="https://github.com/user-attachments/assets/7a10bba5-5190-424f-a65c-22c956934800" />  | <img width="487" height="119" alt="5" src="https://github.com/user-attachments/assets/bfd785e5-6d50-49c2-a8a0-8fcf592a0cc6" />
 
 
 ---
@@ -254,33 +253,6 @@ Therefore, this project is intended for **educational and portfolio purposes onl
 
 ---
 
-## 🤗 Hugging Face
-
-### 📦 Model Repository
-
-https://huggingface.co/earwigmoth/stuttering-detection
-
-Contains:
-
-- Trained Random Forest model
-- Backend source code
-- Documentation
-- Requirements
-
-### 🌐 Static Space
-
-https://huggingface.co/spaces/earwigmoth/stuttering-detection-classifier
-
-Contains:
-
-- Complete frontend interface
-- User Interface demonstration
-- Portfolio showcase
-
-> **Note:** The Static Space is intended to showcase the application's frontend. It does not perform live machine learning inference.
-
----
-
 ## 🎯 Future Improvements
 
 - Deep Learning model (CNN/LSTM)
@@ -295,16 +267,14 @@ Contains:
 
 ## 👩‍💻 Author
 
-**Laiba Khan**
+**Fatima Maqbool**
 
-🎓 BS Software Engineering
+🎓 BS Artificial Intelligence
 🏫 The University of Faisalabad
 
 ### Connect with Me
 
-**GitHub:** https://github.com/Earwigmoth10
-
-**Hugging Face:** https://huggingface.co/earwigmoth
+**GitHub:** https://github.com/FatimaHussain11
 
 ---
 
