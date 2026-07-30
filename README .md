@@ -31,25 +31,6 @@ The system extracts **Mel-Frequency Cepstral Coefficients (MFCCs)** from speech 
 This project was developed as an academic Machine Learning project for the **Bachelor of Software Engineering** program at **The University of Faisalabad**.
 
 ---
-
-## 🌐 Live Demo
-
-### 🤗 Hugging Face Model Repository
-
-View and download the trained Machine Learning model:
-
-**https://huggingface.co/earwigmoth/stuttering-detection**
-
-### 💻 Frontend Demo (Static Space)
-
-Explore the application's user interface online:
-
-**https://huggingface.co/spaces/earwigmoth/stuttering-detection-classifier**
-
-> **Note:** This Static Space demonstrates the frontend interface only. Live predictions require the Flask backend and trained model running locally.
-
----
-
 ## ✨ Features
 
 - 🎙 Upload speech audio (WAV/MP3)
@@ -244,15 +225,18 @@ Then display them like this:
 
 | Landing Page | Audio Analysis |
 |--------------|----------------|
-| ![](screenshots/landing.png) | ![](screenshots/analysis.png) |
+<img width="878" height="405" alt="Capture" src="https://github.com/user-attachments/assets/c4c4c76b-91db-46b9-839c-39d340e8ca04" />  | <img width="240" height="402" alt="10" src="https://github.com/user-attachments/assets/dd6649d5-1ed3-4135-b831-3a9cea700058" />
 
 | Results | History |
 |----------|----------|
-| ![](screenshots/results.png) | ![](screenshots/history.png) |
+<img width="279" height="400" alt="9" src="https://github.com/user-attachments/assets/4e52e33f-ce4a-4d68-b705-fcf1b6a520dc" />  | <img width="668" height="341" alt="2" src="https://github.com/user-attachments/assets/b71a9f87-98c7-4929-b715-57c5e0dbed70" />
+
 
 | Login | Admin Dashboard |
 |-------|-----------------|
-| ![](screenshots/login.png) | ![](screenshots/admin-dashboard.png) |
+<img width="417" height="342" alt="3" src="https://github.com/user-attachments/assets/7a10bba5-5190-424f-a65c-22c956934800" />
+ | <img width="487" height="119" alt="5" src="https://github.com/user-attachments/assets/bfd785e5-6d50-49c2-a8a0-8fcf592a0cc6" />
+
 
 ---
 
