@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – SpeakFlow AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signup.css" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="auth-bg">
+    <div class="auth-orb orb-1"></div>
+    <div class="auth-orb orb-2"></div>
+    <div class="auth-orb orb-3"></div>
+    <div class="auth-particles" id="authParticles"></div>
+  </div>
+
+  <!-- Card -->
+  <div class="auth-wrapper">
+    <div class="auth-card glass-card">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div class="auth-logo-icon"><i class="fas fa-wave-square"></i></div>
+        <div>
+          <span class="auth-logo-text">SpeakFlow <span class="logo-ai">AI</span></span>
+          <p class="auth-logo-sub">AI-Powered Speech Analysis</p>
+        </div>
+      </div>
+
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-subtitle">Sign in to your account to continue analyzing speech.</p>
+
+      <form id="loginForm" novalidate autocomplete="off">
+
+        <!-- Email -->
+        <div class="form-group" id="fg-email">
+          <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+          <div class="input-wrap">
+            <input type="email" id="loginEmail" class="form-input" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <span class="form-error" id="emailErr"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group" id="fg-pass">
+          <label class="form-label">
+            <i class="fas fa-lock"></i> Password
+            <button type="button" class="forgot-link" id="forgotBtn">Forgot Password?</button>
+          </label>
+          <div class="input-wrap">
+            <input type="password" id="loginPass" class="form-input" placeholder="Your password" autocomplete="current-password" />
+            <button type="button" class="toggle-pass" id="togglePass" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error" id="passErr"></span>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="remember-row">
+          <label class="check-label">
+            <input type="checkbox" id="rememberMe" />
+            <span class="check-custom"></span>
+            Remember me
+          </label>
+        </div>
+
+        <p class="form-error text-center" id="globalErr"></p>
+
+        <button type="submit" class="btn-auth" id="loginBtn">
+          <span id="loginBtnText"><i class="fas fa-sign-in-alt"></i> Login</span>
+          <span id="loginBtnLoader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
+        </button>
+      </form>
+
+      <!-- Admin hint -->
+      <div class="admin-hint">
+        <i class="fas fa-shield-alt"></i>
+        Admin? Use <strong>admin@speakflow.ai</strong> to access the dashboard.
+      </div>
+
+      <div class="auth-divider"><span>New to SpeakFlow AI?</span></div>
+      <a href="signup.html" class="btn-auth-outline">
+        <i class="fas fa-user-plus"></i> Create New Account
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-key"></i> Reset Password</h3>
+        <button id="forgotClose" class="sf-modal-close"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:16px;">Enter your email and we'll simulate a password reset (demo only).</p>
+      <input type="email" id="forgotEmail" class="form-input" placeholder="your@email.com" />
+      <button class="btn-auth" style="margin-top:16px;" id="forgotSubmit">
+        <i class="fas fa-paper-plane"></i> Send Reset Link
+      </button>
+      <p id="forgotMsg" style="margin-top:10px;font-size:.85rem;display:none;"></p>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
