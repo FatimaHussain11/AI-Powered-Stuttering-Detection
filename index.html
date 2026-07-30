@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpeakFlow AI – Speech Stuttering Detection</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-wave-square"></i>
+        <span>SpeakFlow <span class="logo-ai">AI</span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#recorder">Recorder</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="nav-user-info" id="navUserInfo" style="display:none;">
+          <button class="btn-user-profile" id="navProfileBtn">
+            <i class="fas fa-user-circle"></i>
+            <span id="navUserName">User</span>
+          </button>
+          <button class="btn-logout" id="navLogoutBtn" title="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+        <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+          <i class="fas fa-moon" id="darkModeIcon"></i>
+        </button>
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="particles" id="particles"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-brain"></i> AI-Powered Healthcare
+        </div>
+        <h1 class="hero-title">
+          AI-Powered Speech<br>
+          <span class="gradient-text">Stuttering Detection</span>
+        </h1>
+        <p class="hero-subtitle">
+          Upload your voice and receive intelligent speech fluency analysis using Machine Learning — powered by MFCC feature extraction and Random Forest classification.
+        </p>
+        <div class="hero-buttons">
+          <a href="#analysis" class="btn btn-primary">
+            <i class="fas fa-upload"></i> Upload Audio
+          </a>
+          <a href="#recorder" class="btn btn-outline">
+            <i class="fas fa-microphone"></i> Try Live Demo
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span>8,000+</span><label>Audio Samples</label></div>
+          <div class="hero-stat"><span>40</span><label>MFCC Features</label></div>
+          <div class="hero-stat"><span>RF</span><label>Classifier</label></div>
+          <div class="hero-stat"><span>High</span><label>Accuracy</label></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="ai-sphere">
+          <div class="sphere-ring ring-1"></div>
+          <div class="sphere-ring ring-2"></div>
+          <div class="sphere-ring ring-3"></div>
+          <div class="sphere-core">
+            <i class="fas fa-wave-square"></i>
+          </div>
+        </div>
+        <div class="waveform-container">
+          <canvas id="heroWaveform" width="400" height="80"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECT OVERVIEW ===== -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Project Pipeline</span>
+        <h2 class="section-title">How SpeakFlow AI Works</h2>
+        <p class="section-desc">A complete ML pipeline from raw audio to intelligent prediction.</p>
+      </div>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="card-icon icon-blue"><i class="fas fa-database"></i></div>
+          <h3>Audio Collection</h3>
+          <p>8,000+ labeled audio samples of normal and stuttered speech collected from diverse speakers to build a robust training dataset.</p>
+          <div class="card-tag">Dataset</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon icon-teal"><i class="fas fa-broom"></i></div>
+          <h3>Audio Cleaning</h3>
+          <p>Background noise removal, normalization, and silence trimming ensure clean signals before feature extraction begins.</p>
+          <div class="card-tag">Preprocessing</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon icon-purple"><i class="fas fa-chart-bar"></i></div>
+          <h3>MFCC Extraction</h3>
+          <p>Mel-Frequency Cepstral Coefficients (40 features) are extracted using Librosa — the gold standard for speech analysis.</p>
+          <div class="card-tag">Feature Engineering</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon icon-green"><i class="fas fa-tree"></i></div>
+          <h3>Random Forest</h3>
+          <p>An ensemble of decision trees classifies speech patterns, providing both prediction and probability estimates for each class.</p>
+          <div class="card-tag">ML Model</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon icon-orange"><i class="fas fa-bullseye"></i></div>
+          <h3>Prediction System</h3>
+          <p>The final output delivers binary classification (Normal / Stutter) along with a confidence score and fluency rating.</p>
+          <div class="card-tag">Inference</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUDIO ANALYSIS SECTION ===== -->
+  <section class="section section-alt" id="analysis">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Audio Analysis</span>
+        <h2 class="section-title">Upload & Analyze Speech</h2>
+        <p class="section-desc">Upload a WAV or MP3 file to run the stuttering detection model.</p>
+      </div>
+      <div class="analysis-layout">
+        <div class="upload-panel">
+          <!-- Drag & Drop Zone -->
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h3>Drag & Drop Audio File</h3>
+            <p>Supports WAV and MP3 formats</p>
+            <button class="btn btn-primary btn-sm" id="browseBtn">
+              <i class="fas fa-folder-open"></i> Browse File
+            </button>
+            <input type="file" id="fileInput" accept=".wav,.mp3,audio/wav,audio/mpeg" hidden />
+          </div>
+
+          <!-- File Preview -->
+          <div class="file-preview" id="filePreview" style="display:none;">
+            <div class="file-info">
+              <div class="file-icon"><i class="fas fa-file-audio"></i></div>
+              <div class="file-details">
+                <span class="file-name" id="fileName">—</span>
+                <div class="file-meta">
+                  <span id="fileSize">—</span>
+                  <span>·</span>
+                  <span id="fileDuration">—</span>
+                </div>
+              </div>
+              <button class="file-remove" id="clearFileBtn" title="Remove file">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <audio id="audioPlayer" controls></audio>
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="analyzeBtn">
+                <i class="fas fa-brain"></i> Analyze Speech
+              </button>
+              <button class="btn btn-ghost" id="clearBtn">
+                <i class="fas fa-trash"></i> Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="upload-info">
+          <h3><i class="fas fa-info-circle"></i> Analysis Details</h3>
+          <ul class="info-list">
+            <li><i class="fas fa-check-circle"></i> MFCC features extracted (40 coefficients)</li>
+            <li><i class="fas fa-check-circle"></i> Random Forest ensemble inference</li>
+            <li><i class="fas fa-check-circle"></i> Confidence score provided</li>
+            <li><i class="fas fa-check-circle"></i> Speech fluency rating calculated</li>
+            <li><i class="fas fa-check-circle"></i> Result saved to history</li>
+            <li><i class="fas fa-check-circle"></i> PDF report available</li>
+          </ul>
+          <div class="format-chips">
+            <span class="chip chip-blue"><i class="fas fa-file-audio"></i> WAV</span>
+            <span class="chip chip-teal"><i class="fas fa-file-audio"></i> MP3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+    <div class="loading-card">
+      <div class="loading-sphere">
+        <i class="fas fa-brain"></i>
+      </div>
+      <h3>Analyzing Speech...</h3>
+      <p>Running AI pipeline on your audio file</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-pct" id="progressPct">0%</div>
+      <div class="loading-steps" id="loadingSteps">
+        <div class="step" id="step1"><i class="fas fa-circle-notch fa-spin"></i> Uploading Audio</div>
+        <div class="step" id="step2"><i class="fas fa-circle"></i> Cleaning Audio</div>
+        <div class="step" id="step3"><i class="fas fa-circle"></i> Extracting MFCC Features</div>
+        <div class="step" id="step4"><i class="fas fa-circle"></i> Running Random Forest Model</div>
+        <div class="step" id="step5"><i class="fas fa-circle"></i> Generating Prediction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LIVE VOICE RECORDER ===== -->
+  <section class="section" id="recorder">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Live Recording</span>
+        <h2 class="section-title">Record Your Voice</h2>
+        <p class="section-desc">Use your microphone to record speech and analyze it directly.</p>
+      </div>
+      <div class="recorder-card">
+        <div class="recorder-top">
+          <div class="timer-display" id="timerDisplay">00:00</div>
+          <div class="rec-indicator" id="recIndicator"></div>
+        </div>
+        <canvas id="liveWaveform" width="600" height="80"></canvas>
+        <div class="recorder-controls">
+          <button class="rec-btn btn-start" id="startRecBtn">
+            <i class="fas fa-microphone"></i> Start Recording
+          </button>
+          <button class="rec-btn btn-stop" id="stopRecBtn" disabled>
+            <i class="fas fa-stop"></i> Stop
+          </button>
+          <button class="rec-btn btn-play" id="playRecBtn" disabled>
+            <i class="fas fa-play"></i> Play
+          </button>
+          <button class="rec-btn btn-delete" id="deleteRecBtn" disabled>
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+        <audio id="recPlayer" style="display:none;"></audio>
+        <button class="btn btn-primary mt-16" id="analyzeRecBtn" disabled style="display:none;">
+          <i class="fas fa-brain"></i> Analyze Recording
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS DASHBOARD ===== -->
+  <section class="section section-alt" id="results">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">AI Output</span>
+        <h2 class="section-title">Results Dashboard</h2>
+        <p class="section-desc">Your speech fluency analysis results appear here after processing.</p>
+      </div>
+
+      <!-- Placeholder when no results -->
+      <div class="results-placeholder" id="resultsPlaceholder">
+        <i class="fas fa-chart-pie"></i>
+        <p>No analysis run yet. Upload or record audio above to get results.</p>
+      </div>
+
+      <!-- Results content (hidden until analysis) -->
+      <div class="results-content" id="resultsContent" style="display:none;">
+        <div class="results-grid">
+          <!-- Prediction Card -->
+          <div class="prediction-card" id="predictionCard">
+            <div class="pred-icon" id="predIcon"></div>
+            <div class="pred-label" id="predLabel"></div>
+            <div class="pred-sublabel" id="predSublabel"></div>
+          </div>
+
+          <!-- Score Cards -->
+          <div class="score-cards">
+            <div class="score-card">
+              <div class="score-value" id="confidenceScore">—</div>
+              <div class="score-label">Confidence Score</div>
+              <i class="fas fa-shield-alt score-icon"></i>
+            </div>
+            <div class="score-card">
+              <div class="score-value" id="fluencyScore">—</div>
+              <div class="score-label">Fluency Score</div>
+              <i class="fas fa-wave-square score-icon"></i>
+            </div>
+            <div class="score-card">
+              <div class="score-value" id="processingTime">—</div>
+              <div class="score-label">Processing Time</div>
+              <i class="fas fa-clock score-icon"></i>
+            </div>
+            <div class="score-card">
+              <div class="score-value" id="predProbability">—</div>
+              <div class="score-label">Pred. Probability</div>
+              <i class="fas fa-percentage score-icon"></i>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="charts-row">
+            <div class="chart-card">
+              <h4><i class="fas fa-chart-pie"></i> Probability Distribution</h4>
+              <canvas id="pieChart" width="260" height="260"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4><i class="fas fa-chart-bar"></i> Feature Importance</h4>
+              <canvas id="barChart" width="340" height="260"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4><i class="fas fa-tachometer-alt"></i> Confidence Meter</h4>
+              <canvas id="gaugeChart" width="260" height="260"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4><i class="fas fa-star"></i> Speech Quality</h4>
+              <canvas id="qualityChart" width="260" height="260"></canvas>
+            </div>
+          </div>
+
+          <!-- Animated Waveform Result -->
+          <div class="waveform-result-card">
+            <h4><i class="fas fa-wave-square"></i> Analyzed Waveform</h4>
+            <canvas id="resultWaveform" width="800" height="80"></canvas>
+          </div>
+        </div>
+
+        <!-- Download Report -->
+        <div class="report-section">
+          <button class="btn btn-primary btn-lg" id="downloadReportBtn">
+            <i class="fas fa-file-pdf"></i> Download PDF Report
+          </button>
+          <button class="btn btn-outline" id="newAnalysisBtn">
+            <i class="fas fa-redo"></i> New Analysis
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DETECTION HISTORY ===== -->
+  <section class="section" id="history">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Detection History</span>
+        <h2 class="section-title">Past Analyses</h2>
+        <p class="section-desc">All previous analyses stored locally on your device.</p>
+      </div>
+      <div class="history-controls">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="historySearch" placeholder="Search by filename or result..." />
+        </div>
+        <button class="btn btn-danger btn-sm" id="clearAllBtn">
+          <i class="fas fa-trash"></i> Clear All
+        </button>
+      </div>
+      <div class="history-table-wrap">
+        <table class="history-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date & Time</th>
+              <th>File Name</th>
+              <th>Result</th>
+              <th>Confidence</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <!-- Rows populated by JS -->
+          </tbody>
+        </table>
+        <div class="history-empty" id="historyEmpty">
+          <i class="fas fa-history"></i>
+          <p>No history yet. Run an analysis to see results here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW AI WORKS ===== -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">AI Pipeline</span>
+        <h2 class="section-title">How the AI Works</h2>
+        <p class="section-desc">A step-by-step walkthrough of the machine learning pipeline.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot dot-blue"><i class="fas fa-upload"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-step">Step 1</div>
+            <h3>Audio Upload</h3>
+            <p>User uploads a WAV or MP3 audio file. The file is validated for format, size, and duration before being passed to the preprocessing pipeline.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot dot-teal"><i class="fas fa-broom"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-step">Step 2</div>
+            <h3>Audio Preprocessing</h3>
+            <p>The audio signal is cleaned — background noise is reduced using spectral subtraction, amplitude is normalized, and silences are trimmed to isolate speech.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot dot-purple"><i class="fas fa-chart-bar"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-step">Step 3</div>
+            <h3>MFCC Feature Extraction</h3>
+            <p>Librosa extracts 40 Mel-Frequency Cepstral Coefficients from the processed signal. These features encode the tonal characteristics of speech, capturing rhythm disruptions indicative of stuttering.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot dot-green"><i class="fas fa-tree"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-step">Step 4</div>
+            <h3>Random Forest Classification</h3>
+            <p>The 40-feature vector is fed into a trained Random Forest ensemble. Each tree votes on the classification; the majority determines the predicted class and probability score.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot dot-orange"><i class="fas fa-bullseye"></i></div>
+          <div class="timeline-content">
+            <div class="timeline-step">Step 5</div>
+            <h3>Prediction Result</h3>
+            <p>The final prediction — Normal or Stuttering — is returned with a confidence score, fluency rating, and processing time. The result is stored in history and available as a PDF report.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECT STATISTICS ===== -->
+  <section class="section stats-section" id="stats">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">By the Numbers</span>
+        <h2 class="section-title">Project Statistics</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card" data-count="8000" data-suffix="+">
+          <div class="stat-icon"><i class="fas fa-database"></i></div>
+          <div class="stat-number" id="stat1">0</div>
+          <div class="stat-label">Audio Samples</div>
+        </div>
+        <div class="stat-card" data-count="40" data-suffix="">
+          <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
+          <div class="stat-number" id="stat2">0</div>
+          <div class="stat-label">MFCC Features</div>
+        </div>
+        <div class="stat-card" data-count="2" data-suffix=" Classes">
+          <div class="stat-icon"><i class="fas fa-tags"></i></div>
+          <div class="stat-number" id="stat3">0</div>
+          <div class="stat-label">Prediction Classes</div>
+        </div>
+        <div class="stat-card" data-count="95" data-suffix="% Acc">
+          <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+          <div class="stat-number" id="stat4">0</div>
+          <div class="stat-label">Model Accuracy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <i class="fas fa-wave-square"></i>
+            <span>SpeakFlow <span class="logo-ai">AI</span></span>
+          </div>
+          <p>AI-Powered Speech Stuttering Detection System —Project in BS Software Engineering.</p>
+        </div>
+        <div class="footer-info">
+          <div class="footer-block">
+            <h4>Developer</h4>
+            <p>BS Software Engineering Student</p>
+            <p class="text-muted">The University of Faisalabad</p>
+          </div>
+          <div class="footer-block">
+            <h4>Technology Stack</h4>
+            <p>Python · Librosa · Scikit-learn</p>
+            <p class="text-muted">Random Forest · MFCC · HTML/CSS/JS</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 SpeakFlow AI – The University of Faisalabad. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scrollTop" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+  <script src="session.js"></script>
+</body>
+</html>
