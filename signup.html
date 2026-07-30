@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up – SpeakFlow AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signup.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="auth-bg">
+    <div class="auth-orb orb-1"></div>
+    <div class="auth-orb orb-2"></div>
+    <div class="auth-orb orb-3"></div>
+    <div class="auth-particles" id="authParticles"></div>
+  </div>
+
+  <!-- Card -->
+  <div class="auth-wrapper">
+    <div class="auth-card glass-card">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div class="auth-logo-icon"><i class="fas fa-wave-square"></i></div>
+        <div>
+          <span class="auth-logo-text">SpeakFlow <span class="logo-ai">AI</span></span>
+          <p class="auth-logo-sub">AI-Powered Speech Analysis</p>
+        </div>
+      </div>
+
+      <h1 class="auth-title">Create Account</h1>
+      <p class="auth-subtitle">Join SpeakFlow AI and start analyzing speech patterns today.</p>
+
+      <form id="signupForm" novalidate autocomplete="off">
+
+        <!-- Full Name -->
+        <div class="form-group" id="fg-name">
+          <label class="form-label"><i class="fas fa-user"></i> Full Name</label>
+          <div class="input-wrap">
+            <input type="text" id="signupName" class="form-input" placeholder="Your full name" autocomplete="name" />
+          </div>
+          <span class="form-error" id="nameErr"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group" id="fg-email">
+          <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+          <div class="input-wrap">
+            <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <span class="form-error" id="emailErr"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group" id="fg-pass">
+          <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+          <div class="input-wrap">
+            <input type="password" id="signupPass" class="form-input" placeholder="Create a strong password" autocomplete="new-password" />
+            <button type="button" class="toggle-pass" id="togglePass1" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <!-- Strength Meter -->
+          <div class="strength-meter" id="strengthMeter">
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel">Enter password</span>
+          </div>
+          <span class="form-error" id="passErr"></span>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group" id="fg-confirm">
+          <label class="form-label"><i class="fas fa-shield-alt"></i> Confirm Password</label>
+          <div class="input-wrap">
+            <input type="password" id="signupConfirm" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" />
+            <button type="button" class="toggle-pass" id="togglePass2" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error" id="confirmErr"></span>
+        </div>
+
+        <p class="form-error text-center" id="globalErr"></p>
+        <p class="form-success text-center" id="globalSuccess" style="display:none;"></p>
+
+        <button type="submit" class="btn-auth" id="signupBtn">
+          <span id="signupBtnText"><i class="fas fa-user-plus"></i> Create Account</span>
+          <span id="signupBtnLoader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Creating...</span>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>Already have an account?</span></div>
+      <a href="login.html" class="btn-auth-outline">
+        <i class="fas fa-sign-in-alt"></i> Go to Login
+      </a>
+
+    </div>
+  </div>
+
+  <script src="signup.js"></script>
+</body>
+</html>
